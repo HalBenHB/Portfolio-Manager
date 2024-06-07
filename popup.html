@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Portfolio Manager</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+  </head>
+  <body>
+    <button id="settingsButton" class="settings-button">&#9881;</button>
+    <button id="fullPageButton" class="full-page-button">&#x26F6;</button>
+    <h1>Portfolio Manager</h1>
+    <div>
+      <div id="ziraatTab" class="tab active">Ziraat</div>
+      <div id="investingTab" class="tab">Investing</div>
+    </div>
+    <div id="ziraatContent" class="tab-content active">
+      <h2>Ziraat Portfolio</h2>
+      <div class="header-row">
+        <button id="ziraatButton1"></button>
+        <span id="updateDateZiraat">Date: N/A</span>
+      </div>
+      <table id="summaryTableZiraat">
+        <thead>
+          <tr>
+            <th>Total Cost</th>
+            <th>Pot G/L</th>
+            <th>Current Value</th>
+            <th>TL</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <!-- Summary data will be inserted here -->
+          </tr>
+        </tbody>
+      </table>
+      <table id="ziraatTable">
+        <thead>
+          <tr>
+            <th class="sortable" data-table="ziraatTable" data-column="0">
+              Code
+            </th>
+            <th class="sortable" data-table="ziraatTable" data-column="1">
+              Quantity
+            </th>
+            <th class="sortable" data-table="ziraatTable" data-column="2">
+              APrice
+            </th>
+            <th class="sortable" data-table="ziraatTable" data-column="3">
+              ACost
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Ziraat portfolio data will be inserted here -->
+        </tbody>
+      </table>
+    </div>
+    <div id="investingContent" class="tab-content">
+      <h2>Investing Portfolio</h2>
+      <div class="header-row">
+        <button id="investingButton1">Login Investing</button>
+        <span id="updateDateInvesting">Date: N/A</span>
+      </div>
+      <table id="summaryTableInvesting">
+        <thead>
+          <tr>
+            <th>Total Cost</th>
+            <th>Pot G/L</th>
+            <th>Current Value</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <!-- Summary data will be inserted here -->
+          </tr>
+        </tbody>
+      </table>
+      <table id="investingTable">
+        <thead>
+          <tr>
+            <th class="sortable" data-table="investingTable" data-column="0">
+              Code
+            </th>
+            <th class="sortable" data-table="investingTable" data-column="1">
+              Quantity
+            </th>
+            <th class="sortable" data-table="investingTable" data-column="2">
+              APrice
+            </th>
+            <th class="sortable" data-table="investingTable" data-column="3">
+              ACost
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Ziraat portfolio data will be inserted here -->
+        </tbody>
+      </table>
+    </div>
+    <script src="popup.js"></script>
+  </body>
+</html>

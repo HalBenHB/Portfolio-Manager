@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Settings</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        width: 80%;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      select,
+      button {
+        padding: 10px;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Settings</h1>
+      <div class="form-group">
+        <label for="ziraatDecimalSetting">Ziraat Decimal Setting:</label>
+        <select id="ziraatDecimalSetting">
+          <option value="0">No Change</option>
+          <option value="1">Swap Dot and Comma</option>
+          <option value="2">Auto Detect</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="investingDecimalSetting">Investing Decimal Setting:</label>
+        <select id="investingDecimalSetting">
+          <option value="0">No Change</option>
+          <option value="1">Swap Dot and Comma</option>
+          <option value="2">Auto Detect</option>
+        </select>
+      </div>
+
+      <button id="saveSettings">Save</button>
+    </div>
+    <script src="options.js"></script>
+  </body>
+</html>

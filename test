@@ -1,0 +1,70 @@
+function handlePopUpUpdate() {
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    let currentTab = tabs[0];
+    let currentUrl = currentTab.url;
+    console.log("Current URL:", currentUrl);
+
+    const ziraatUrl = "https://esube1.ziraatyatirim.com.tr/";
+    const portfolioUrl =
+      "https://esube1.ziraatyatirim.com.tr/sanalsube/tr/Portfolio";
+
+    if (currentUrl === portfolioUrl) {
+      console.log("Current URL is the portfolio URL.");
+      ziraatButton1.textContent = "Update Ziraat Portfolio";
+      ziraatButton1.onclick = () => {
+        console.log("Update Portfolio button clicked.");
+        chrome.tabs.sendMessage(
+          currentTab.id,
+          { action: "parsePortfolio" },
+          (response) => {
+            if (chrome.runtime.lastError) {
+              console.error(
+                "Error sending message to content script:",
+                chrome.runtime.lastError.message
+              );
+            } else {
+              console.log("Response from content script:", response);
+              fetchAndDisplayPortfolioData(); // Refresh the table immediately
+            }
+          }
+        );
+      };
+    } else if (currentUrl.startsWith(ziraatUrl)) {
+      console.log("Current URL starts with the base URL.");
+      ziraatButton1.textContent = "Ziraat Portfolio";
+      ziraatButton1.onclick = () => {
+        console.log("Navigating to portfolio URL in the current tab.");
+        chrome.tabs.update(currentTab.id, { url: portfolioUrl }, () => {
+          console.log("Tab updated to portfolio URL.");
+          // Set a timeout to ensure the page is fully loaded before updating the button
+          setTimeout(() => {
+            handlePopUpUpdate(); // Re-check the URL and update the button
+          }, 1000); // Adjust the timeout as needed
+        });
+      };
+    } else {
+      console.log("Current URL does not match the base URL or portfolio URL.");
+      ziraatButton1.textContent = "Login Ziraat";
+      ziraatButton1.onclick = () => {
+        console.log(
+          "Searching for an existing tab that starts with the base URL."
+        );
+        chrome.tabs.query({}, (allTabs) => {
+          let matchingTab = allTabs.find(
+            (tab) => tab.url && tab.url.startsWith(ziraatUrl)
+          );
+          if (matchingTab) {
+            console.log("Found a matching tab. Switching to this tab.");
+            chrome.tabs.update(matchingTab.id, { active: true });
+            chrome.windows.update(matchingTab.windowId, { focused: true });
+          } else {
+            console.log(
+              "No matching tab found. Opening portfolio URL in a new tab."
+            );
+            chrome.tabs.create({ url: portfolioUrl });
+          }
+        });
+      };
+    }
+  });
+}
