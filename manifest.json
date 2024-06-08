@@ -21,7 +21,7 @@
       "js": ["content.js"]
     },
     {
-      "matches": ["https://tr.investing.com/portfolio/*"],
+      "matches": ["https://*.investing.com/portfolio/*"],
       "js": ["content.js"]
     }
   ],

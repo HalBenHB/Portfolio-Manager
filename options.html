@@ -1,52 +1,69 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Settings</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-      }
-      .container {
-        width: 80%;
-        margin: 0 auto;
-        padding: 20px;
-      }
-      .form-group {
-        margin-bottom: 20px;
-      }
-      label {
-        display: block;
-        margin-bottom: 5px;
-      }
-      select,
-      button {
-        padding: 10px;
-        width: 100%;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <h1>Settings</h1>
-      <div class="form-group">
-        <label for="ziraatDecimalSetting">Ziraat Decimal Setting:</label>
-        <select id="ziraatDecimalSetting">
-          <option value="0">No Change</option>
-          <option value="1">Swap Dot and Comma</option>
-          <option value="2">Auto Detect</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="investingDecimalSetting">Investing Decimal Setting:</label>
-        <select id="investingDecimalSetting">
-          <option value="0">No Change</option>
-          <option value="1">Swap Dot and Comma</option>
-          <option value="2">Auto Detect</option>
-        </select>
-      </div>
+<head>
+  <title>Settings</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      width: 80%;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    select, button, input {
+      padding: 10px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Settings</h1>
+  <div class="form-group">
+    <label for="ziraatDecimalSetting">Ziraat Decimal Setting:</label>
+    <select id="ziraatDecimalSetting">
+      <option value="0">No Change</option>
+      <option value="1">Swap Dot and Comma</option>
+      <option value="2">Auto Detect</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="investingDecimalSetting">Investing Decimal Setting:</label>
+    <select id="investingDecimalSetting">
+      <option value="0">No Change</option>
+      <option value="1">Only Decimal as Dot</option>
+      <option value="2">Auto Detect</option>
+    </select>
+  </div>
 
-      <button id="saveSettings">Save</button>
-    </div>
-    <script src="options.js"></script>
-  </body>
+  <div class="form-group">
+    <label for="portfolioSource">Portfolio Source:</label>
+    <select id="portfolioSource">
+      <option value="Ziraat">Ziraat</option>
+      <option value="Investing">Investing</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="portfolioName">Portfolio Name:</label>
+    <input type="text" id="portfolioName" placeholder="Enter tab name" />
+  </div>
+  <div class="form-group">
+    <label for="portfolioURL">Investing URL:</label>
+    <input type="text" id="portfolioURL" placeholder="Enter Investing URL" />
+  </div>
+  <button id="addNewPortfolio">Add Portfolio</button>
+  <h2>Manage Portfolios</h2>
+  <div id="portfolioList"></div>
+  <button id="saveSettings">Save</button>
+</div>
+<script src="options.js"></script>
+</body>
 </html>
