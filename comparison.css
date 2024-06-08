@@ -1,0 +1,42 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+th {
+    background-color: #f2f2f2;
+    cursor: pointer; /* Add cursor pointer to indicate sortable columns */
+}
+
+.sortable {
+    cursor: pointer;
+    position: relative;
+    padding-right: 18px;
+}
+
+.sortable:after {
+    content: "\25B2"; /* Default symbol for unsorted (upward triangle) */
+    position: absolute;
+    right: 5px;
+}
+
+.sortable.sorted-asc:after {
+    content: "\25B2"; /* Upward triangle for ascending sort */
+}
+
+.sortable.sorted-desc:after {
+    content: "\25BC"; /* Downward triangle for descending sort */
+}
+
+.same-value {
+    background-color: lightgreen;
+}
+
+.different-value {
+    background-color: lightcoral;
+}

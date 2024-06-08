@@ -1,21 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Portfolio Manager</title>
-  <link rel="stylesheet" type="text/css" href="styles.css" />
+    <title>Portfolio Manager</title>
+    <link rel="stylesheet" type="text/css" href="styles.css"/>
 </head>
 <body>
 <button id="settingsButton" class="settings-button">&#9881;</button>
 <button id="fullPageButton" class="full-page-button">&#x26F6;</button>
 <h1>Portfolio Manager</h1>
-<div id="tabsContainer"></div>
-<div class="dropdown">
-  <button id="selectForCompareButton">Select Options</button>
-  <div id="selectForCompareTabs" class="dropdown-content">
-  </div>
+<div id="compareStuff">
+    <div class="dropdown">
+        <button id="compareButton">&#8783;</button>
+        <button id="selectForCompareButton">Select Options</button>
+        <div id="selectForCompareTabs" class="dropdown-content">
+        </div>
+    </div>
 </div>
+<div id="tabsContainer"></div>
+
 
 <div id="tabContentContainer"></div>
-<script src="popup.js"></script>
+<script type="module" src="popup.js"></script>
 </body>
 </html>

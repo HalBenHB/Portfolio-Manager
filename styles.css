@@ -60,7 +60,6 @@ th {
   cursor: pointer;
   background-color: #cfcfcf;
   border: 1px solid #ccc;
-  border-bottom: none;
   color: black;
 }
 
@@ -78,6 +77,10 @@ th {
 
 .tab-content.active {
   display: block;
+}
+
+#tabContentContainer{
+  margin-top: -1px;
 }
 
 button {
@@ -134,14 +137,15 @@ button:hover {
   cursor: pointer;
 }
 
-
-
 .dropdown {
-  position: relative;
   display: inline-block;
+  color: black;
+  float:right;
+  margin-top: 11px;
 }
 
 .dropdown-content {
+  right: 0;
   display: none;
   position: absolute;
   background-color: #f1f1f1;
@@ -176,3 +180,8 @@ button:hover {
 .selected-items div {
   margin-bottom: 5px;
 }
+
+#compareButton{
+  display: none;
+}
+
