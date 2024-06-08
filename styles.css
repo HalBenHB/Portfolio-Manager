@@ -133,3 +133,46 @@ button:hover {
   font-size: 24px;
   cursor: pointer;
 }
+
+
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 120px;
+  overflow-y: auto;
+  max-height: 100px;
+  border: 1px solid #ddd;
+  z-index: 1;
+}
+
+.dropdown-content label {
+  display: block;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.dropdown-content label:hover {
+  background-color: #ddd;
+}
+
+.show {
+  display: block;
+}
+
+.selected-items {
+  width:100px;
+  margin-top: 5px;
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+
+.selected-items div {
+  margin-bottom: 5px;
+}

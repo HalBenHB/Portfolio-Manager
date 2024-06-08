@@ -1,4 +1,7 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", mainFunction);
+
+
+function mainFunction(){
     console.log("Popup DOMContentLoaded event fired");
 
     const ziraatUrl = "https://esube1.ziraatyatirim.com.tr/";
@@ -8,7 +11,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const tabContentContainer = document.getElementById("tabContentContainer");
     const settingsButton = document.getElementById("settingsButton");
     const fullPageButton = document.getElementById("fullPageButton");
+    const selectForCompareButton = document.getElementById("selectForCompareButton");
+    const selectForCompareTabs = document.getElementById("selectForCompareTabs");
     let portfolios;
+
 
     chrome.storage.local.get("extensionData", (result) => {
         console.log("Retrieved extensionData from storage:", result);
@@ -116,6 +122,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 sortTable(tableId, columnIndex, newDirection);
             });
         });
+
+        const optionContentLabel = document.createElement("label");
+        const optionContentInput = document.createElement("input");
+        optionContentInput.type="checkbox";
+        optionContentInput.value=`${portfolio.name}`;
+        optionContentLabel.appendChild(optionContentInput);
+        optionContentLabel.append(`${portfolio.name}`);
+        selectForCompareTabs.appendChild(optionContentLabel);
     }
 
     function switchTab(portfolioId) {
@@ -262,7 +276,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         function UPU_otherTab(button, portfolio, matchedTab) {
-            button.textContent = "Switch to " + matchedTab.title;
+            button.textContent = "Switch to tab";
             button.onclick = () => {
                 console.log("Navigating to portfolio URL in the current tab.");
                 chrome.tabs.update(matchedTab.id, {active: true}, () => {
@@ -411,4 +425,42 @@ document.addEventListener("DOMContentLoaded", () => {
         minimumFractionDigits: 2,
         maximumFractionDigits: 3,
     });
+
+selectForCompareButton.addEventListener("click",()=>{
+    document.getElementById("selectForCompareTabs").classList.toggle("show");
 });
+
+window.onclick = function(event) {
+    if (!event.target.matches('.dropdown button')) {
+        const dropdowns = document.getElementsByClassName("dropdown-content");
+        for (let i = 0; i < dropdowns.length; i++) {
+            const openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
+        }
+    }
+}
+
+document.querySelectorAll('.dropdown-content input[type="checkbox"]').forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+        const text = this.value;
+        const selectedItems = document.querySelector('.selected-items');
+        const existingItem = selectedItems.querySelector(`[data-value="${text}"]`);
+
+        if (this.checked) {
+            if (!existingItem) {
+                const selectedItem = document.createElement('div');
+                selectedItem.setAttribute('data-value', text);
+                selectedItem.innerText = text;
+                selectedItems.appendChild(selectedItem);
+            }
+        } else {
+            if (existingItem) {
+                existingItem.remove();
+            }
+        }
+    });
+});
+
+}
