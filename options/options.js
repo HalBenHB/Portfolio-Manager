@@ -6,16 +6,34 @@ document.addEventListener("DOMContentLoaded", () => {
     const portfolioName = document.getElementById("portfolioName");
     const portfolioURL = document.getElementById("portfolioURL");
 
-    function updateForm(){
-        portfolioName.value=portfolioSource.value;
+    function updateForm() {
+        const sourceValue = portfolioSource.value;
+        portfolioName.value = sourceValue;
 
-        if (portfolioSource.value==="Ziraat"){
-            portfolioURL.value="https://esube1.ziraatyatirim.com.tr/sanalsube/tr/Portfolio";
-        } else if(portfolioSource.value==="Investing"){
-            portfolioURL.value="https://www.investing.com/portfolio/?portfolioID=*";
+        if (sourceValue === "Ziraat") {
+            portfolioURL.value = "https://esube1.ziraatyatirim.com.tr/sanalsube/tr/Portfolio";
+            portfolioURL.disabled = true;
+        } else if (sourceValue === "Investing") {
+            portfolioURL.value = "https://www.investing.com/portfolio/?portfolioID=*";
+            portfolioURL.disabled = false;
+            portfolioURL.placeholder = "Enter Investing.com portfolio URL (e.g., ...?portfolioID=123)";
+        } else if (sourceValue === "Fibabanka") {
+            portfolioURL.value = "https://internetbankaciligi.fibabanka.com.tr/";
+            portfolioURL.disabled = true; // Typically bank URLs are fixed
+            portfolioURL.placeholder = ""; // Clear placeholder
+        } else {
+            portfolioURL.value = "NULL"; // Clear for unknown types
+            portfolioURL.disabled = false;
+            portfolioURL.placeholder = "Enter portfolio URL";
         }
     }
-    updateForm();
+
+
+    portfolioSource.addEventListener("change", updateForm);
+    updateForm(); // Initial call
+
+
+    // Load settings and portfolios from Chrome storage
     chrome.storage.local.get(
         ["investingDecimalSetting", "ziraatDecimalSetting", "extensionData"],
         (result) => {
@@ -27,7 +45,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById("ziraatDecimalSetting").value =
                     result.ziraatDecimalSetting;
             }
-            if (result.extensionData && result.extensionData.portfolios) {
+            if (result.fibabankaDecimalSetting !== undefined) {
+                document.getElementById("fibabankaDecimalSetting").value =
+                    result.fibabankaDecimalSetting;
+            }
+            if (result.extensionData.portfolios) {
                 result.extensionData.portfolios.forEach((portfolio, index) => {
                     addPortfolioToDOM(portfolio, index);
                 });
@@ -52,25 +74,25 @@ document.addEventListener("DOMContentLoaded", () => {
                     updateDate: null,
                 };
                 portfolios.push(newPortfolio);
-                chrome.storage.local.set({ extensionData: { portfolios } }, () => {
+                chrome.storage.local.set({extensionData: {portfolios}}, () => {
                     addPortfolioToDOM(newPortfolio, portfolios.length - 1);
                 });
             });
         }
     });
 
-    portfolioSource.addEventListener("change", ()=>{
-        updateForm();
-    });
 
     saveSettingsButton.addEventListener("click", () => {
         const investingDecimalSetting = document.getElementById("investingDecimalSetting").value;
         const ziraatDecimalSetting = document.getElementById("ziraatDecimalSetting").value;
+        const fibabankaDecimalSetting = document.getElementById("fibabankaDecimalSetting").value;
+
 
         chrome.storage.local.set(
             {
                 investingDecimalSetting: investingDecimalSetting,
                 ziraatDecimalSetting: ziraatDecimalSetting,
+                fibabankaDecimalSetting: fibabankaDecimalSetting,
             },
             () => {
                 alert("Settings saved");
@@ -92,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
             chrome.storage.local.get("extensionData", (result) => {
                 const portfolios = result.extensionData.portfolios || [];
                 portfolios.splice(index, 1);
-                chrome.storage.local.set({ extensionData: { portfolios } }, () => {
+                chrome.storage.local.set({extensionData: {portfolios}}, () => {
                     portfolioList.removeChild(portfolioDiv);
                 });
             });
@@ -105,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const portfolios = result.extensionData.portfolios || [];
                 portfolios[index].name = newName;
                 portfolios[index].id = `${newName}-${index}`; // Update ID when name changes
-                chrome.storage.local.set({ extensionData: { portfolios } });
+                chrome.storage.local.set({extensionData: {portfolios}});
             });
         });
     }

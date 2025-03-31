@@ -112,9 +112,9 @@ function updateTable(data, tableId) {
         let row = document.createElement(   "tr");
 
         // Format the numbers with commas as thousand separators
-        let formattedQuantity = formatter.format(parseFloat(asset.quantity));
-        let formattedAPrice = parseFloat(asset.aPrice);
-        let formattedACost = parseFloat(asset.aCost);
+        let formattedQuantity = formatter.format(asset.quantity); // Directly format number
+        let formattedAPrice = formatter.format(asset.aPrice);
+        let formattedACost = formatter.format(asset.aCost);
         console.log(asset, formattedAPrice)
 
         row.innerHTML = `<td>${asset.code}</td><td>${formattedQuantity}</td><td>${formattedAPrice}</td><td>${formattedACost}</td>`;
@@ -124,8 +124,9 @@ function updateTable(data, tableId) {
 
 function updateDate(date, elementId) {
     console.log("Updating date for element ID:", elementId, "with date:", date);
+    const displayDate = date ? new Date(date).toLocaleString() : "Date N/A";
     const dateSpan = document.getElementById(elementId);
-    dateSpan.textContent = `${date || "Date N/A"}`;
+    dateSpan.textContent = `${displayDate}`;
 }
 
 function updateSummaryTable(data, tableId) {
@@ -147,9 +148,9 @@ function updateSummaryTable(data, tableId) {
     }
 
     data.forEach((asset) => {
-        const quantity = (typeof asset.quantity === 'string' || asset.quantity instanceof String) ? parseFloat(asset.quantity.replace(",", "")) : asset.quantity;
-        const aPrice = (typeof asset.aPrice === 'string' || asset.aPrice instanceof String) ? parseFloat(asset.aPrice.replace(",", "")) : asset.aPrice;
-        const aCost = (typeof asset.aCost === 'string' || asset.aCost instanceof String) ? parseFloat(asset.aCost.replace(",", "")) : asset.aCost;
+        const quantity = asset.quantity;
+        const aPrice = asset.aPrice;
+        const aCost = asset.aCost;
 
 
         const assetCost = quantity * aCost;
@@ -236,5 +237,5 @@ export function showComparisonTable(combinedTable, selectedPortfolios) {
     localStorage.setItem('comparisonTableHTML', tableHTML);
 
     // Open the comparison page
-    chrome.tabs.create({ url: chrome.runtime.getURL("comparison.html") });
+    chrome.tabs.create({ url: chrome.runtime.getURL("comparison/comparison.html") });
 }

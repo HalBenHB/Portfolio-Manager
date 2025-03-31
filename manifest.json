@@ -1,37 +1,70 @@
 {
   "manifest_version": 3,
   "name": "Portfolio Manager",
-  "version": "0.2",
-  "description": "Parse and compare your bank investing portfolio with another portfolio.",
-  "permissions": ["tabs", "activeTab", "storage"],
+  "version": "0.4",
+  "description": "Fetches, stores, displays, and compares investment portfolios..",
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "storage"
+  ],
   "background": {
     "service_worker": "background.js"
   },
   "action": {
-    "default_popup": "popup.html",
+    "default_popup": "popup/popup.html",
     "default_icon": {
-      "16": "icon16.png",
-      "48": "icon48.png",
-      "128": "icon128.png"
+      "16": "pics/icon16.png",
+      "48": "pics/icon48.png",
+      "128": "pics/icon128.png"
     }
   },
   "content_scripts": [
     {
-      "matches": ["https://esube1.ziraatyatirim.com.tr/sanalsube/tr/Portfolio"],
-      "js": ["content.js"]
+      "matches": [
+        "https://esube1.ziraatyatirim.com.tr/sanalsube/tr/Portfolio*"
+      ],
+      "js": [
+        "content_scripts/contentScriptUtils.js",
+        "content_scripts/contentScript-ZiraatESube.js"
+      ]
     },
     {
-      "matches": ["https://*.investing.com/portfolio/*"],
-      "js": ["content.js"]
+      "matches": [
+        "https://*.investing.com/portfolio/*"
+      ],
+      "js": [
+        "content_scripts/contentScriptUtils.js",
+        "content_scripts/contentScript-Investing.js"
+      ]
+    },
+    {
+      "matches": [
+        "https://internetbankaciligi.fibabanka.com.tr/*"
+      ],
+      "js": [
+        "content_scripts/contentScriptUtils.js",
+        "content_scripts/contentScript-Fibabanka.js"
+      ]
+    },
+    {
+      "matches": [
+        "https://fibahisse.foreks.com/*"
+      ],
+      "js": [
+        "content_scripts/contentScriptUtils.js",
+        "content_scripts/contentScript-FibahisseForeks.js"
+      ],
+      "all_frames": true
     }
   ],
   "icons": {
-    "16": "icon16.png",
-    "48": "icon48.png",
-    "128": "icon128.png"
+    "16": "pics/icon16.png",
+    "48": "pics/icon48.png",
+    "128": "pics/icon128.png"
   },
   "options_ui": {
-    "page": "options.html",
+    "page": "options/options.html",
     "open_in_tab": true
   }
 }

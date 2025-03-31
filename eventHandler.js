@@ -55,7 +55,7 @@ export function handleSettingsButtonClick(event) {
 }
 
 export function handleFullPageButtonClick(event) {
-    chrome.tabs.create({url: chrome.runtime.getURL("popup.html")});
+    chrome.tabs.create({url: chrome.runtime.getURL("popup/popup.html")});
 }
 
 export function handleTabButtonClick(event, portfolioId) {
@@ -151,7 +151,7 @@ export function handleCheckboxChange(event) {
             selectedOptions.splice(index, 1);
         }
     }
-    console.log("valueasfas", compareButton.style.display);
+
     if (selectedOptions.length >= 1 && !compareButtonVisible) {
         compareButton.style.display = "inline-block";
     } else if (selectedOptions.length === 0 && compareButtonVisible) {

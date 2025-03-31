@@ -1,4 +1,4 @@
-import { addSortableEventListeners } from "./eventHandler.js";
+import { addSortableEventListeners } from "../eventHandler.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     const tableHTML = localStorage.getItem('comparisonTableHTML');

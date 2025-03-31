@@ -36,6 +36,14 @@
     </select>
   </div>
   <div class="form-group">
+    <label for="fibabankaDecimalSetting">Fibabanka Decimal Setting:</label>
+    <select id="fibabankaDecimalSetting">
+      <option value="0">No Change</option>
+      <option value="1">Only Decimal as Dot</option>
+      <option value="2">Auto Detect</option>
+    </select>
+  </div>
+  <div class="form-group">
     <label for="investingDecimalSetting">Investing Decimal Setting:</label>
     <select id="investingDecimalSetting">
       <option value="0">No Change</option>
@@ -48,6 +56,7 @@
     <label for="portfolioSource">Portfolio Source:</label>
     <select id="portfolioSource">
       <option value="Ziraat">Ziraat</option>
+      <option value="Fibabanka">Fibabanka</option>
       <option value="Investing">Investing</option>
     </select>
   </div>
@@ -56,8 +65,8 @@
     <input type="text" id="portfolioName" placeholder="Enter tab name" />
   </div>
   <div class="form-group">
-    <label for="portfolioURL">Investing URL:</label>
-    <input type="text" id="portfolioURL" placeholder="Enter Investing URL" />
+    <label for="portfolioURL">Portfolio URL:</label>
+    <input type="text" id="portfolioURL" placeholder="Enter specific portfolio URL if needed" />
   </div>
   <button id="addNewPortfolio">Add Portfolio</button>
   <h2>Manage Portfolios</h2>
