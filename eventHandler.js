@@ -32,6 +32,7 @@ export function handleCompareButtonClick(event) {
         console.log("SelectedPortfolios: ", selectedPortfolios);
         selectedPortfolios.forEach(portfolio => {
             portfolio.data.forEach(asset => {
+
                 if (!combinedTable[asset.code]) {
                     combinedTable[asset.code] = {
                         code: asset.code,

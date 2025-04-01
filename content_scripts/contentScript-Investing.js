@@ -40,7 +40,7 @@ function parseInvestingPortfolioData(doc, decimalSetting) {
                 }
 
                 if (codeCell && cells.length >= 4) {
-                    const code = codeCell.textContent;
+                    const code = codeCell.textContent.trim().toUpperCase();
                     let [quantity, aPrice, aCost] = [
                         quantityCell.textContent,
                         aPriceCell.textContent,

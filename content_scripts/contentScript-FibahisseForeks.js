@@ -78,7 +78,7 @@ function parseFibahissePortfolioData(doc, decimalSetting) {
                 return; // continue to next row
             }
 
-            const code = cells[fieldIndexes["symbol"]].textContent.replace(/\s+/g, '');
+            const code = cells[fieldIndexes["symbol"]].textContent.replace(/\s+/g, '').trim().toUpperCase();
             const [quantity, aPrice, aCost] = [cells[fieldIndexes["piece"]].textContent.replace(/\s+/g, ''), cells[fieldIndexes["live_price_last"]].textContent.replace(/\s+/g, ''), cells[fieldIndexes["cost"]].textContent.replace(/\s+/g, ''),].map((text) => standardizeNumber(text, decimalSetting));
             portfolioData.push({
                 code: code, quantity: parseFloat(quantity), aPrice: parseFloat(aPrice), aCost: parseFloat(aCost),

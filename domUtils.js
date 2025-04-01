@@ -142,12 +142,30 @@ function updateSummaryTable(data, tableId) {
     let totalValue = 0;
     let tlValue = 0;
 
-    if (data.length > 0 && data[0].code === "TRY") {
-        tlValue = parseFloat(data[0].quantity.replace(",", ""));
-        data = data.slice(1); // Remove TL row from data for further calculations
+
+    const tryIndex = data.findIndex(asset => asset && asset.code === "TRY");
+
+    if (tryIndex !== -1) {
+        // Found 'TRY' asset
+        tlValue = data[tryIndex].quantity;
+
+        // Add a check for NaN after parsing
+        if (isNaN(tlValue)) {
+            console.warn(`Could not parse TRY quantity: '${rawQuantity}'. Setting tlValue to 0.`);
+            tlValue = 0; // Fallback if parsing fails
+        }
+
+        // Remove the 'TRY' asset from the array *in place* so it's not included in other calculations
+        // The original 'data' array is modified here.
+        data.splice(tryIndex, 1);
+        console.log(`TRY asset found at index ${tryIndex}, removed. tlValue set to:`, tlValue);
+    } else {
+        console.log("No TRY asset found in data for summary calculation.");
+        // tlValue remains 0 if no TRY asset is found
     }
 
     data.forEach((asset) => {
+
         const quantity = asset.quantity;
         const aPrice = asset.aPrice;
         const aCost = asset.aCost;
@@ -192,9 +210,19 @@ function updateSummaryTable(data, tableId) {
         <td>${formattedTotalValue}</td>
       `;
     }
+    else if (tableId.includes("Fibabanka")) {
+        const summaryRow = document.querySelector(`#${tableId} tbody tr`);
+        summaryRow.innerHTML = `
+        <td>${formattedTotalCost}</td>
+        <td>${formattedPotGL}</td>
+        <td>${formattedCurrentValue}</td>
+        <td>${formattedTotalValue}</td>
+      `;
+    }
 }
 
 export function showComparisonTable(combinedTable, selectedPortfolios) {
+    console.log("showComparisonTable",combinedTable,selectedPortfolios);
     // Helper function to determine the cell class based on comparison
     function getCellClass(values) {
         const nonEmptyValues = values.map(v => (v === '' ? '0' : `${v}`.replace(',', '')));

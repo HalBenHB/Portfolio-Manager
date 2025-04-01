@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Portfolio Manager",
-  "version": "0.4",
+  "version": "0.4.1",
   "description": "Fetches, stores, displays, and compares investment portfolios..",
   "permissions": [
     "tabs",

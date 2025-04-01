@@ -15,9 +15,7 @@ function mainFunction() {
     const ziraatBaseUrl = "https://esube1.ziraatyatirim.com.tr/";
     const ziraatPortfolioUrl =
         "https://esube1.ziraatyatirim.com.tr/sanalsube/tr/Portfolio";
-
     const fibabankaBaseUrl = "https://internetbankaciligi.fibabanka.com.tr/"; // Base login domain
-    const fibabankaPortfolioUrl = "https://internetbankaciligi.fibabanka.com.tr/Investment/Portfolio"; // Specific portfolio page
 
 
     const settingsButton = document.getElementById("settingsButton");
@@ -138,11 +136,12 @@ function mainFunction() {
                     return;
                 }
 
-                console.log(`Navigating current tab (${currentTab.id}) to portfolio URL: ${portfolio.url} for ${portfolio.name}`);
+                console.log(`Navigating target tab (${matchedTab.id}) to portfolio URL: ${portfolio.url} for ${portfolio.name}`);
 
                 // if (Fibabanka ) document.querySelector('[data-testid="menuFibaBorsa"]').click();
                 chrome.tabs.update(matchedTab.id, {url: portfolio.url}, () => {
-                    console.log(`Tab ${currentTab.id} update initiated to ${portfolio.url}.`);
+                    console.log(`Tab ${matchedTab.id} update initiated to ${portfolio.url}.`);
+
                     // Note: The content script will only run *after* the navigation is complete.
                     // The button state will be updated the *next* time the popup is opened or updatePopUp is called.
                 });
