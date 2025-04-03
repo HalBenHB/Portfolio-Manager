@@ -1,8 +1,8 @@
 // --- Settings Management ---
 let decimalSettings = {
-    investingDecimalSetting: 2, // Default value
-    ziraatDecimalSetting: 0,     // Default value
-    fibabankaDecimalSetting: 2, // Default value (e.g., Auto Detect)
+    investingDecimalSetting: 2,
+    ziraatDecimalSetting: 2,
+    fibabankaDecimalSetting: 2,
 };
 
 
@@ -172,6 +172,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
  * @returns {string} The standardized number string (e.g., "1234.56") or the original (cleaned) input if setting is 0.
  */
 function standardizeNumber(input, setting) {
+    console.log(input,setting);
     if (typeof input !== 'string') {
         // Handle non-string input gracefully, e.g., return as is or throw error
         // For this example, let's try to convert or return an empty string
